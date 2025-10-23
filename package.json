@@ -1,26 +1,52 @@
 {
-  "name": "sparkless",
-  "version": "0.1.0",
+  "name": "wallstreeton-us-markets",
+  "version": "1.0.0",
+  "description": "WallStreet.ON - US Markets Trading Platform",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "next dev --turbopack",
+    "build": "prisma generate --schema=prisma/schema.sqlite.prisma && next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "prisma:dev:sqlite": "prisma migrate dev --schema=prisma/schema.sqlite.prisma",
+    "prisma:deploy:pg": "prisma migrate deploy --schema=prisma/schema.postgres.prisma",
+    "prisma:seed:sqlite": "tsx prisma/seed.ts",
+    "prisma:generate:sqlite": "prisma generate --schema=prisma/schema.sqlite.prisma",
+    "prisma:generate:pg": "prisma generate --schema=prisma/schema.postgres.prisma",
+    "prisma:studio": "prisma studio --schema=prisma/schema.sqlite.prisma"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@cowprotocol/cow-sdk": "^7.0.10",
+    "@prisma/client": "^6.18.0",
+    "@solana/spl-token": "^0.4.11",
+    "@solana/web3.js": "1.98.4",
+    "@tailwindcss/postcss": "^4.1.16",
+    "@tanstack/react-query": "^5.67.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "ethers": "^6.13.5",
+    "lucide-react": "^0.469.0",
+    "next": "16.0.0",
+    "next-auth": "^4.24.11",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "next": "16.0.0"
+    "recharts": "^2.15.4",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.16",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "16.0.0"
+    "eslint-config-next": "16.0.0",
+    "prisma": "^6.18.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5"
   }
 }

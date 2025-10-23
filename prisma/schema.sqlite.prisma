@@ -1,0 +1,204 @@
+// SQLite schema for sandbox preview
+// Switch to schema.postgres.prisma for production
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String?   @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts     Account[]
+  sessions     Session[]
+  wallets      Wallet[]
+  balances     Balance[]
+  deposits     Deposit[]
+  withdrawals  Withdrawal[]
+  positions    Position[]
+  trades       Trade[]
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Wallet {
+  id        String   @id @default(uuid())
+  userId    String
+  chain     String   // ethereum, arbitrum, solana
+  address   String
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chain])
+}
+
+model Asset {
+  id              String   @id @default(uuid())
+  symbol          String   @unique
+  name            String
+  type            String   // stable
+  decimals        Int
+  chain           String   // ethereum, arbitrum, solana
+  contractAddress String?
+  createdAt       DateTime @default(now())
+
+  balances    Balance[]
+  deposits    Deposit[]
+  withdrawals Withdrawal[]
+}
+
+model Balance {
+  id        String   @id @default(uuid())
+  userId    String
+  assetId   String
+  available String   @default("0")
+  locked    String   @default("0")
+  updatedAt DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  asset Asset @relation(fields: [assetId], references: [id])
+
+  @@unique([userId, assetId])
+}
+
+model Market {
+  id          String   @id @default(uuid())
+  type        String   // perp
+  venue       String   // ostium
+  chain       String   // arbitrum
+  symbol      String   @unique
+  baseSymbol  String
+  quoteSymbol String
+  name        String
+  leverageMax Int
+  venueSymbol String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  positions Position[]
+  trades    Trade[]
+}
+
+model Deposit {
+  id                    String    @id @default(uuid())
+  userId                String
+  assetId               String
+  chain                 String
+  amount                String
+  txHash                String
+  fromAddress           String
+  toAddress             String
+  confirmations         Int       @default(0)
+  requiredConfirmations Int       @default(12)
+  status                String    @default("pending") // pending, confirmed, failed
+  createdAt             DateTime  @default(now())
+  confirmedAt           DateTime?
+
+  user  User  @relation(fields: [userId], references: [id])
+  asset Asset @relation(fields: [assetId], references: [id])
+}
+
+model Withdrawal {
+  id          String    @id @default(uuid())
+  userId      String
+  assetId     String
+  chain       String
+  amount      String
+  toAddress   String
+  txHash      String?
+  status      String    @default("pending") // pending, processing, completed, failed
+  createdAt   DateTime  @default(now())
+  processedAt DateTime?
+
+  user  User  @relation(fields: [userId], references: [id])
+  asset Asset @relation(fields: [assetId], references: [id])
+}
+
+model Position {
+  id               String    @id @default(uuid())
+  userId           String
+  marketId         String
+  side             String    // long, short
+  leverage         Int
+  entryPrice       String
+  currentPrice     String
+  size             String
+  margin           String
+  unrealizedPnl    String    @default("0")
+  realizedPnl      String    @default("0")
+  fundingPaid      String    @default("0")
+  status           String    @default("open") // open, closed, liquidated
+  openTxHash       String?
+  closeTxHash      String?
+  liquidationPrice String?
+  createdAt        DateTime  @default(now())
+  closedAt         DateTime?
+
+  user   User   @relation(fields: [userId], references: [id])
+  market Market @relation(fields: [marketId], references: [id])
+  trades Trade[]
+}
+
+model Trade {
+  id         String   @id @default(uuid())
+  userId     String
+  positionId String
+  marketId   String
+  type       String   // open, close, liquidation
+  side       String   // long, short
+  price      String
+  size       String
+  fee        String   @default("0")
+  txHash     String?
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id])
+  position Position @relation(fields: [positionId], references: [id])
+  market   Market   @relation(fields: [marketId], references: [id])
+}
+

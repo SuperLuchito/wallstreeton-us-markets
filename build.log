@@ -1,0 +1,60 @@
+
+> wallstreeton-us-markets@1.0.0 build /home/ubuntu/sparkless
+> prisma generate --schema=prisma/schema.sqlite.prisma && next build
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.sqlite.prisma
+
+✔ Generated Prisma Client (v6.18.0) to ./node_modules/.pnpm/@prisma+client@6.18.0_prisma@6.18.0_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/client in 149ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
+
+ ⚠ You are using a non-standard "NODE_ENV" value in your environment. This creates inconsistencies in the project and is strongly advised against. Read more: https://nextjs.org/docs/messages/non-standard-node-env
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Environments: .env
+
+   Creating an optimized production build ...
+Error: Cannot apply unknown utility class `border-border`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
+    [2m[at onInvalidCandidate (/home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:21:1314)][0m
+    [2m[at Te (/home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:16:36337)][0m
+    [2m[at /home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:21:355][0m
+    [2m[at Tr (/home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:3:1718)][0m
+    [2m[at _ (/home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:3:1377)][0m
+    [2m[at Se (/home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:21:172)][0m
+    [2m[at ln (/home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:38:294)][0m
+    [2m[at process.processTicksAndRejections (node:internal/process/task_queues:105:5)][0m
+    [2m[at async sn (/home/ubuntu/sparkless/node_modules/.pnpm/tailwindcss@4.1.16/node_modules/tailwindcss/dist/lib.js:38:631)][0m
+    [2m[at async Zr (/home/ubuntu/sparkless/node_modules/.pnpm/@tailwindcss+node@4.1.16/node_modules/@tailwindcss/node/dist/index.js:10:3385)][0m
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./app/globals.css
+Error evaluating Node.js code
+CssSyntaxError: tailwindcss: /home/ubuntu/sparkless/app/globals.css:1:1: Cannot apply unknown utility class `border-border`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
+    at Input.error (node_modules/.pnpm/postcss@8.4.31/node_modules/postcss/lib/input.js:106:16) [/home/ubuntu/sparkless/.next/build/chunks/node_modules__pnpm_56ec7204._.js:4132:22]
+    at Root.error (node_modules/.pnpm/postcss@8.4.31/node_modules/postcss/lib/node.js:115:32) [/home/ubuntu/sparkless/.next/build/chunks/node_modules__pnpm_56ec7204._.js:895:38]
+    [at Object.Once (/home/ubuntu/sparkless/node_modules/.pnpm/@tailwindcss+postcss@4.1.16/node_modules/@tailwindcss/postcss/dist/index.js:10:6912)]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+    at async LazyResult.runAsync (node_modules/.pnpm/postcss@8.4.31/node_modules/postcss/lib/lazy-result.js:261:11) [/home/ubuntu/sparkless/.next/build/chunks/node_modules__pnpm_56ec7204._.js:6070:21]
+    at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [/home/ubuntu/sparkless/.next/build/chunks/[root-of-the-server]__51225daf._.js:146:36]
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [/home/ubuntu/sparkless/.next/build/chunks/[root-of-the-server]__974941ed._.js:451:31]
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+    at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [/home/ubuntu/sparkless/.next/build/chunks/[root-of-the-server]__51225daf._.js:146:36])
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [/home/ubuntu/sparkless/.next/build/chunks/[root-of-the-server]__974941ed._.js:451:31])
+ ELIFECYCLE  Command failed with exit code 1.
