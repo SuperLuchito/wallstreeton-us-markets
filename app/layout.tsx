@@ -14,9 +14,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const buildTag = process.env.NEXT_PUBLIC_BUILD_TAG || 'dev';
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <footer className="fixed bottom-0 right-0 p-2 text-xs text-gray-400 bg-white/80">
+          Build: {buildTag}
+        </footer>
+      </body>
     </html>
   );
 }
+

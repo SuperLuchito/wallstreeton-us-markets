@@ -21,6 +21,7 @@
   "dependencies": {
     "@cowprotocol/cow-sdk": "^7.0.10",
     "@prisma/client": "^6.18.0",
+    "@radix-ui/react-slot": "^1.2.3",
     "@solana/spl-token": "^0.4.11",
     "@solana/web3.js": "1.98.4",
     "@tailwindcss/postcss": "^4.1.16",
@@ -37,6 +38,7 @@
     "recharts": "^2.15.4",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.16",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
