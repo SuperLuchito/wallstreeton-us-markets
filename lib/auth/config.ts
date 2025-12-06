@@ -1,4 +1,5 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
@@ -37,9 +38,9 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, user }: { session: Session; user: any }) {
       if (session.user) {
-        session.user.id = user.id;
+        (session.user as any).id = user.id;
       }
       return session;
     },
